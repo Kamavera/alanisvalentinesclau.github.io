@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="module" src="/valentine-hearts.js"></script>
+	<title>Te amo</title>
+	<
+	<style>
+		.container {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+		}
+		.container img {
+			max-width: 300px;
+			max-height: 300px;
+			margin: 10px;
+		}
+	</style>
+	<style>
+		h1 {
+			font-size: 72px;
+			background: linear-gradient(to right, crimson, salmon); /* Set a gradient background for the h1 element */
+			-webkit-background-clip: text; /* Set the text color to be visible only within the gradient background */
+			background-clip: text;
+			-webkit-text-fill-color: transparent; /* Set the text color to transparent to make it blend with the gradient background */
+			animation: wave 2s infinite linear; /* Set the animation to make the letters wave */
+		}
+		
+		@keyframes wave {
+			0% {
+				transform: rotate(0deg);
+			}
+			10% {
+				transform: rotate(-10deg);
+			}
+			20% {
+				transform: rotate(12deg);
+			}
+			30% {
+				transform: rotate(-10deg);
+			}
+			40% {
+				transform: rotate(9deg);
+			}
+			50% {
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: rotate(0deg);
+			}
+		}
+	</style>
+	
+	<style>
+		h1 {
+			text-align: center;
+		}
+	</style>
+</head>
+<body style="background-color: black;">
+	
+
+	<h1 style = "color: crimson;">TE AMO</h1>
+	<valentine-hearts></valentine-hearts><div class="container">
+		<img src="C:\Users\kaleb\OneDrive\Desktop\alanis valentines clau\9ba9cdf7-e620-4d0b-b00a-1a8cbcbcc023.jpg" alt="Image 1">
+		<img src="C:\Users\kaleb\OneDrive\Desktop\alanis valentines clau\66526a13-4c29-426c-9e61-e9b82fb1e443.jpg" alt="Image 2">
+		<img src="C:\Users\kaleb\OneDrive\Desktop\alanis valentines clau\199311f8-55d3-47d1-b158-532ee9daeb7c.jpg" alt="Image 3">
+		<img src="C:\Users\kaleb\OneDrive\Desktop\alanis valentines clau\d81dc3b3-c184-47b4-a576-a02d4d0ea6ad.jpg" alt="Image 4">
+		<img src="C:\Users\kaleb\OneDrive\Desktop\alanis valentines clau\d58467b4-6493-4049-9c9f-a031140d70ba.jpg" alt="Image 5">
+		<img src="C:\Users\kaleb\OneDrive\Desktop\alanis valentines clau\e5f05c26-25da-4d03-8ef7-31ca9ad55960.jpg" alt="Image 1">
+		<img src="C:\Users\kaleb\OneDrive\Desktop\alanis valentines clau\e720354a-d810-4ab0-9e7f-c2cfd31bb4a8.jpg" alt="Image 2">
+		<img src="C:\Users\kaleb\OneDrive\Desktop\alanis valentines clau\f68f05ef-53f1-42bb-95cc-02600e1a9d9e.jpg" alt="Image 3">
+		<img src="C:\Users\kaleb\OneDrive\Desktop\alanis valentines clau\f978199e-3ad0-487e-99f4-1f9a186d6c11.jpg" alt="Image 4">	
+	
+	
+	</div>
+	<h2><valentine-hearts></valentine-hearts></h2>
+
+
+</body>
+<script>
+		
+	class ValentineHearts extends HTMLElement {
+		#shadowRoot;
+	
+		constructor() {
+			super();
+			this.#createShadowRoot();
+		}
+	
+		#createShadowRoot() {
+			this.#shadowRoot = this.attachShadow({ mode: 'open' });
+			this.#shadowRoot.innerHTML = `
+				<style>
+					:host {
+						--heart-size: 1em;
+						--heart-color: red;
+						--heart-speed: 30s;
+	
+						pointer-events: none;
+						display: block;
+						position: absolute;
+						top: 0;
+						left: 0;
+						width: 100%;
+						height: 100%;
+						z-index: 10000;
+						overflow: hidden;
+					}
+	
+					heart {
+						opacity: 0;
+						display: block;
+						width: var(--heart-size);
+						height: var(--heart-size);
+						position: absolute;
+						left: calc(var(--heart-x-offset) - 4%);
+						background: var(--heart-color);
+						transform: rotate(45deg) scale(0);
+						transition: top var(--heart-speed) linear,
+									opacity 1s ease-in-out,
+									transform 1s ease-in-out;
+						animation-duration: 6s;
+						animation-iteration-count: infinite;
+						will-change: top, left, opacity, transform;
+					}
+	
+					heart::before {
+						content: ' ';
+						display: block;
+						width: var(--heart-size);
+						height: var(--heart-size);
+						border-radius: calc(var(--heart-size) / 2);
+						position: absolute;
+						top: 0;
+						left: calc(var(--heart-size) * -0.5);
+						background: var(--heart-color);
+					}
+	
+					heart::after {
+						content: ' ';
+						display: block;
+						width: var(--heart-size);
+						height: var(--heart-size);
+						border-radius: calc(var(--heart-size) / 2);
+						position: absolute;
+						top: calc(var(--heart-size) * -0.5);
+						left: 0;
+						background: var(--heart-color);
+					}
+	
+					@keyframes sway {
+						0% {
+							left: calc(var(--heart-x-offset) - 4%);
+						}
+	
+						50% {
+							left: calc(var(--heart-x-offset) + 4%);
+						}
+	
+						100% {
+							left: calc(var(--heart-x-offset) - 4%);
+						}
+					}
+				</style>
+			`;
+		}
+	
+		connectedCallback() {
+			setInterval(() => this.#spawnHeart(), 1000);
+	
+			for (let i = 0; i < 20; i++) {
+				this.#spawnHeart(Math.round(Math.random() * 100));
+			}
+	
+			this.addEventListener('resize', () => this.#resize());
+			this.#resize();
+		}
+	
+		#resize() {
+			this.style.width = `${window.clientWidth}px`;
+			this.style.height = `${document.body.clientHeight}px`;
+		}
+	
+		#spawnHeart(top) {
+			const heart = document.createElement('heart');
+	
+			heart.style.top = `${top || Math.round(Math.random() * 25 + 75)}%`;
+			heart.style.setProperty('--heart-x-offset', `${Math.random() * 100}%`);
+	
+			const brightness = Math.random();
+			heart.style.setProperty(
+				'--heart-color',
+				`rgb(255, ${Math.round(brightness * 150)}, ${Math.round(brightness * 50)})`
+			);
+	
+			this.#shadowRoot.appendChild(heart);
+	
+			setTimeout(() => {
+				heart.style.animationName = 'sway';
+			}, Math.random() * 3000);
+	
+			setTimeout(() => {
+				heart.style.top = '-2%';
+				heart.style.opacity = 0.5;
+				heart.style.transform = `rotate(45deg) scale(${Math.random() * 0.4 + 0.8})`;
+	
+				function removeHeart(event) {
+					if (event.propertyName === 'top') {
+						heart.parentNode.removeChild(heart);
+						heart.removeEventListener('transitionend', removeHeart);
+					}
+				}
+	
+				heart.addEventListener('transitionend', removeHeart);
+			}, 100);
+		}
+	}
+	
+	customElements.define('valentine-hearts', ValentineHearts);
+</script>
+
+</html>
