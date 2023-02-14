@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Open valentines.html",
-            "file": "c:\\Users\\kaleb\\OneDrive\\Desktop\\alanisvalentineclau.github.io\\valentines.html"
+            "file": "alanisvalentineclau.github.io\\valentines.html"
         }
     ]
 }
